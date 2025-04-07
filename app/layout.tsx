@@ -7,6 +7,9 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'EduGradely',
   description: 'This is an AI based assignment grading tool',
+  icons: {
+    icon: '/images/Eg_i.ico',
+  },
 };
 
 export default function RootLayout({
