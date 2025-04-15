@@ -17,12 +17,19 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { AccountPopup } from "@/components/AccountPopup";
+import { useRouter } from "next/navigation";
 
 export default function Dashboard() {
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const [isAccountPopupOpen, setIsAccountPopupOpen] = useState(false);
   const username = "User"; // This would come from authentication
+
+  const handleLogout = () => {
+    // Here you would typically clear any authentication tokens or session data
+    router.push("/"); // Redirect to landing page
+  };
 
   // Get current time of day
   const getGreeting = () => {
@@ -106,7 +113,7 @@ export default function Dashboard() {
                 }`}>About</span>
               </Link>
               <button 
-                onClick={() => {/* Handle logout */}}
+                onClick={handleLogout}
                 className="flex items-center gap-3 text-gray-600 hover:text-teal-600 hover:bg-teal-50 p-2 rounded-lg w-full text-left group hover:scale-105 transform transition-all duration-300"
               >
                 <LogOut className="h-5 w-5 flex-shrink-0" />
