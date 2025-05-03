@@ -35,7 +35,7 @@ export default function Dashboard() {
       router.push("/login");
     } else {
       const user = JSON.parse(storedUser);
-      setEmail(user.name || "User"); // Adjust this according to your user object
+      setEmail(user.username || "User"); // Adjust this according to your user object
     }
   }, []);
 
@@ -62,11 +62,6 @@ export default function Dashboard() {
       <AccountPopup 
         isOpen={isAccountPopupOpen}
         onClose={() => setIsAccountPopupOpen(false)}
-        initialData={{
-          username: email,
-          email: "user@example.com",
-          password: "********"
-        }}
       />
 
       {/* Sidebar */}

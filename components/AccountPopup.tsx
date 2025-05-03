@@ -1,40 +1,50 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
 interface AccountPopupProps {
   isOpen: boolean;
   onClose: () => void;
-  initialData?: {
-    username: string;
-    email: string;
-    password: string;
-  };
 }
 
-export function AccountPopup({ isOpen, onClose, initialData }: AccountPopupProps) {
+export function AccountPopup({ isOpen, onClose }: AccountPopupProps) {
   const [isEditing, setIsEditing] = useState(false);
-  const [userData, setUserData] = useState(initialData || {
+  const [userData, setUserData] = useState({
     username: 'User Name',
-    email: 'User@gmail.com',
-    password: 'Password123',
+    email: 'user@gmail.com',
   });
 
-  const handleEdit = () => {
-    setIsEditing(true);
-  };
+  useEffect(() => {
+    if (isOpen) {
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        try {
+          const parsed = JSON.parse(storedUser);
+          setUserData({
+            username: parsed.username || 'User Name',
+            email: parsed.email || 'user@gmail.com',
+          });
+        } catch (error) {
+          console.error('Invalid user data in localStorage');
+        }
+      }
+    }
+  }, [isOpen]);
+
+  const handleEdit = () => setIsEditing(true);
 
   const handleSave = () => {
     setIsEditing(false);
-    // Here you would typically save the changes to your backend
+    // Save to localStorage or send to backend as needed
+    localStorage.setItem('user', JSON.stringify(userData));
   };
 
   const handleInputChange = (field: keyof typeof userData, value: string) => {
     setUserData(prev => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 
@@ -72,11 +82,6 @@ export function AccountPopup({ isOpen, onClose, initialData }: AccountPopupProps
               disabled={!isEditing}
               className="w-full px-4 py-2 rounded-full border"
             />
-            {isEditing && (
-              <button className="absolute right-3 top-1/2 -translate-y-1/2">
-                ✏️
-              </button>
-            )}
           </div>
 
           <div className="relative">
@@ -86,26 +91,6 @@ export function AccountPopup({ isOpen, onClose, initialData }: AccountPopupProps
               disabled={!isEditing}
               className="w-full px-4 py-2 rounded-full border"
             />
-            {isEditing && (
-              <button className="absolute right-3 top-1/2 -translate-y-1/2">
-                ✏️
-              </button>
-            )}
-          </div>
-
-          <div className="relative">
-            <Input
-              type="password"
-              value={userData.password}
-              onChange={(e) => handleInputChange('password', e.target.value)}
-              disabled={!isEditing}
-              className="w-full px-4 py-2 rounded-full border"
-            />
-            {isEditing && (
-              <button className="absolute right-3 top-1/2 -translate-y-1/2">
-                ✏️
-              </button>
-            )}
           </div>
         </div>
 
@@ -125,4 +110,4 @@ export function AccountPopup({ isOpen, onClose, initialData }: AccountPopupProps
       </div>
     </div>
   );
-} 
+}

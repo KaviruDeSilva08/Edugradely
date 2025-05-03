@@ -1,10 +1,10 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
 
 interface NavbarProps {
   currentPath?: string;
@@ -12,6 +12,18 @@ interface NavbarProps {
 
 export function Navbar({ currentPath = "/" }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    setIsLoggedIn(!!user);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setIsLoggedIn(false);
+    window.location.href = "/"; // Optional: redirect to homepage after logout
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-sm z-50 border-b border-gray-100">
@@ -29,24 +41,24 @@ export function Navbar({ currentPath = "/" }: NavbarProps) {
               />
             </div>
           </Link>
-          
+
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-6 ml-4">
-            <Link 
-              href="/how-it-works" 
+            <Link
+              href="/how-it-works"
               className={`text-base ${
-                currentPath === "/how-it-works" 
-                  ? "text-gray-900 font-medium" 
+                currentPath === "/how-it-works"
+                  ? "text-gray-900 font-medium"
                   : "text-gray-600 hover:text-gray-900"
               }`}
             >
               How it Works
             </Link>
-            <Link 
+            <Link
               href="/about"
               className={`text-base ${
-                currentPath === "/about" 
-                  ? "text-gray-900 font-medium" 
+                currentPath === "/about"
+                  ? "text-gray-900 font-medium"
                   : "text-gray-600 hover:text-gray-900"
               }`}
             >
@@ -55,60 +67,73 @@ export function Navbar({ currentPath = "/" }: NavbarProps) {
           </div>
         </div>
 
+        {/* Desktop Buttons */}
         <div className="hidden md:flex items-center gap-6 ml-auto pr-4">
-          <Link href="/login" className="text-gray-600 hover:text-gray-900 text-base">
-            Log in
-          </Link>
-          <Link href="/signup">
-            <Button className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-2 rounded-full text-base">
-              Sign up
+          {!isLoggedIn ? (
+            <>
+              <Link href="/login" className="text-gray-600 hover:text-gray-900 text-base">
+                Log in
+              </Link>
+              <Link href="/signup">
+                <Button className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-2 rounded-full text-base">
+                  Sign up
+                </Button>
+              </Link>
+            </>
+          ) : (
+            <Button
+              onClick={handleLogout}
+              className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-full text-base"
+            >
+              Logout
             </Button>
-          </Link>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
-        <button 
+        <button
           className="ml-auto mr-4 md:hidden"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
-          {mobileMenuOpen ? (
-            <X className="h-6 w-6" />
-          ) : (
-            <Menu className="h-6 w-6" />
-          )}
+          {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="absolute top-full left-0 right-0 bg-white shadow-lg p-4 md:hidden">
             <div className="flex flex-col gap-4">
-              <Link 
-                href="/how-it-works" 
-                className="text-gray-600 hover:text-gray-900 text-base"
-              >
+              <Link href="/how-it-works" className="text-gray-600 hover:text-gray-900 text-base">
                 How it Works
               </Link>
-              <Link 
-                href="/about" 
-                className="text-gray-600 hover:text-gray-900 text-base"
-              >
+              <Link href="/about" className="text-gray-600 hover:text-gray-900 text-base">
                 About
               </Link>
-              <Link 
-                href="/login" 
-                className="text-gray-600 hover:text-gray-900 text-base"
-              >
-                Log in
-              </Link>
-              <Link href="/signup">
-                <Button className="bg-teal-600 hover:bg-teal-700 text-white w-full rounded-full text-base py-2">
-                  Sign up
+              {!isLoggedIn ? (
+                <>
+                  <Link href="/login" className="text-gray-600 hover:text-gray-900 text-base">
+                    Log in
+                  </Link>
+                  <Link href="/signup">
+                    <Button className="bg-teal-600 hover:bg-teal-700 text-white w-full rounded-full text-base py-2">
+                      Sign up
+                    </Button>
+                  </Link>
+                </>
+              ) : (
+                <Button
+                  onClick={() => {
+                    handleLogout();
+                    setMobileMenuOpen(false);
+                  }}
+                  className="bg-red-500 hover:bg-red-600 text-white w-full rounded-full text-base py-2"
+                >
+                  Logout
                 </Button>
-              </Link>
+              )}
             </div>
           </div>
         )}
       </div>
     </nav>
   );
-} 
+}
