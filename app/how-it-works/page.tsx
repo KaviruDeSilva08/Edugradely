@@ -48,7 +48,7 @@ export default function HowItWorks() {
               </p>
               <div className="grid grid-cols-2 gap-4">
                 <img
-                  src="/upload-preview-1.jpg"
+                  src="/upload-preview-1.png"
                   alt="Document upload interface"
                   className="rounded-lg shadow-md"
                 />
@@ -61,7 +61,7 @@ export default function HowItWorks() {
             </div>
             <div className="w-full md:w-1/2 flex justify-center">
               <img
-                src="/images/laptop-colorful.png"
+                src="/images/uploadillustration.png"
                 alt="Upload illustration"
                 className="w-full max-w-md animate-bounce-1"
               />
@@ -97,7 +97,7 @@ export default function HowItWorks() {
             </div>
             <div className="w-full md:w-1/2 flex justify-center">
               <img
-                src="/images/document-colorful.png"
+                src="/images/analysis_illustration.png"
                 alt="Analysis illustration"
                 className="w-full max-w-md animate-bounce-1"
               />
@@ -133,7 +133,7 @@ export default function HowItWorks() {
             </div>
             <div className="w-full md:w-1/2 flex justify-center">
               <img
-                src="/images/clipboard-colorful.png"
+                src="/images/results_illustration.png"
                 alt="Results illustration"
                 className="w-full max-w-md animate-rotate-1"
               />
