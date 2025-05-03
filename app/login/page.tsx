@@ -7,14 +7,55 @@ import Image from "next/image";
 import { useState } from "react";
 
 export default function Login() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log("Login attempt", { username, password });
+  
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
+  
+      const data = await response.json();
+  
+      if (!response.ok) {
+        setError(data.message || "Login failed");
+        console.log(data.error);
+        return;
+      }
+  
+      // Add timestamp and expiry logic (30 min)
+      const currentTime = new Date().getTime();
+      const expiryTime = currentTime + 30 * 60 * 1000; // 30 minutes in ms
+  
+      const userData = {
+        ...data.user,
+        loginTime: currentTime,
+        expiryTime: expiryTime,
+      };
+  
+      // Store enriched user data in localStorage
+      localStorage.setItem('user', JSON.stringify(userData));
+  
+      // Redirect to dashboard
+      window.location.href = '/dashboard';
+    } catch (err) {
+      console.error(err);
+      alert('An error occurred during login.');
+    }
   };
+  
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-teal-50 to-blue-50 flex items-center justify-center p-4">
@@ -44,18 +85,18 @@ export default function Login() {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
             <label 
-              htmlFor="username" 
+              htmlFor="email" 
               className="block text-sm font-medium text-gray-600"
             >
-              User Name
+              Email
             </label>
             <input
-              id="username"
+              id="email"
               type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full px-4 py-3 rounded-full bg-white border border-gray-200 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 outline-none transition-all"
-              placeholder="Enter your username"
+              placeholder="Enter your email"
               required
             />
           </div>

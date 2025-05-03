@@ -26,7 +26,19 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-// Check if the model already exists to prevent overwriting
+// Prevent model overwrite during hot reloads in dev
 const User = mongoose.models.User || mongoose.model('User', UserSchema);
 
-export default User; 
+export default User;
+
+
+// seed database
+// http://localhost:3000/api/seed/users
+
+/*
+Login
+
+test@test.com
+test
+
+*/

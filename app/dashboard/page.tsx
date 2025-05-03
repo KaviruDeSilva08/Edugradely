@@ -15,14 +15,29 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AccountPopup } from "@/components/AccountPopup";
+import { useRouter } from "next/navigation";
+
 
 export default function Dashboard() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const [isAccountPopupOpen, setIsAccountPopupOpen] = useState(false);
-  const username = "User"; // This would come from authentication
+  const [email, setEmail] = useState("User");
+  // const username = "User"; // This would come from authentication
+  const router = useRouter();
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+
+    if (!storedUser) {
+      router.push("/login");
+    } else {
+      const user = JSON.parse(storedUser);
+      setEmail(user.name || "User"); // Adjust this according to your user object
+    }
+  }, []);
 
   // Get current time of day
   const getGreeting = () => {
@@ -32,6 +47,15 @@ export default function Dashboard() {
     return "Good Evening";
   };
 
+  const logout = () => {
+    // Remove user session data from localStorage
+    localStorage.removeItem('user');
+  
+    // Redirect to the login page
+    window.location.href = '/login';
+  };
+  
+
   return (
     <div className="min-h-screen flex">
       {/* Account Popup */}
@@ -39,7 +63,7 @@ export default function Dashboard() {
         isOpen={isAccountPopupOpen}
         onClose={() => setIsAccountPopupOpen(false)}
         initialData={{
-          username: username,
+          username: email,
           email: "user@example.com",
           password: "********"
         }}
@@ -106,7 +130,7 @@ export default function Dashboard() {
                 }`}>About</span>
               </Link>
               <button 
-                onClick={() => {/* Handle logout */}}
+                onClick={() => {logout()}}
                 className="flex items-center gap-3 text-gray-600 hover:text-teal-600 hover:bg-teal-50 p-2 rounded-lg w-full text-left group hover:scale-105 transform transition-all duration-300"
               >
                 <LogOut className="h-5 w-5 flex-shrink-0" />
@@ -184,7 +208,7 @@ export default function Dashboard() {
         <div className="p-8">
           {/* Greeting */}
           <div className="mb-8">
-            <h1 className="text-2xl font-bold mb-2">{getGreeting()}, {username}!</h1>
+            <h1 className="text-2xl font-bold mb-2">{getGreeting()}, {email}!</h1>
             <p className="text-gray-600">How can we help you today?</p>
           </div>
 
