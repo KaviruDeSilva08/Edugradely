@@ -57,8 +57,8 @@ export function Footer() {
           <div className="col-span-2 sm:col-span-1">
             <h3 className="font-bold text-lg mb-3 md:mb-4">Contact</h3>
             <p className="text-teal-100 text-sm md:text-base">
-              Email: info@aigrading.com<br />
-              Support: support@aigrading.com
+              Email: info@edugradely.com<br />
+              Support: support@edugradely.com
             </p>
           </div>
         </div>
@@ -66,7 +66,7 @@ export function Footer() {
         <div className="border-t border-teal-600 pt-6 md:pt-8">
           <div className="flex flex-col-reverse md:flex-row justify-between items-center gap-4 md:gap-0">
             <p className="text-teal-100 text-sm md:text-base text-center md:text-left">
-              © {new Date().getFullYear()} AI Grading. All rights reserved.
+              © {new Date().getFullYear()} EduGradely. All rights reserved.
             </p>
             <div className="flex space-x-4 md:space-x-6">
               <a href="#" className="text-teal-100 hover:text-white transition-colors p-1">
