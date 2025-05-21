@@ -181,6 +181,28 @@ html {
   }
 }
 
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 /* Animation Classes */
 .animate-float {
   animation: float 2s ease-in-out infinite;
@@ -192,6 +214,14 @@ html {
 
 .animate-pulse-slow {
   animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-slide-in {
+  animation: slideIn 1s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 1s ease-out forwards;
 }
 
 /* Performance Optimizations */
@@ -214,5 +244,116 @@ html {
 .animate-on-scroll.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+@layer utilities {
+  .animate-fade-out {
+    animation: fadeOut 1s ease-in-out forwards;
+  }
+
+  .animate-scale-up {
+    animation: scaleUp 0.5s ease-out forwards;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes scaleUp {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Shake Animation Keyframes */
+@keyframes shake-1 {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  20% {
+    transform: translate(-3px, -3px) rotate(-1deg) scale(1.05);
+  }
+  40% {
+    transform: translate(3px, 3px) rotate(1deg) scale(1.02);
+  }
+  60% {
+    transform: translate(-3px, 3px) rotate(-0.5deg) scale(1.05);
+  }
+  80% {
+    transform: translate(3px, -3px) rotate(0.5deg) scale(1.02);
+  }
+}
+
+@keyframes shake-2 {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  20% {
+    transform: translate(3px, -3px) rotate(1deg) scale(1.02);
+  }
+  40% {
+    transform: translate(-3px, 3px) rotate(-1deg) scale(1.05);
+  }
+  60% {
+    transform: translate(3px, 3px) rotate(0.5deg) scale(1.02);
+  }
+  80% {
+    transform: translate(-3px, -3px) rotate(-0.5deg) scale(1.05);
+  }
+}
+
+@keyframes shake-3 {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  20% {
+    transform: translate(-3px, 3px) rotate(-0.5deg) scale(1.05);
+  }
+  40% {
+    transform: translate(3px, -3px) rotate(0.5deg) scale(1.02);
+  }
+  60% {
+    transform: translate(-3px, -3px) rotate(-1deg) scale(1.05);
+  }
+  80% {
+    transform: translate(3px, 3px) rotate(1deg) scale(1.02);
+  }
+}
+
+/* Shake Animation Classes */
+.animate-shake-1 {
+  animation: shake-1 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  transition: transform 0.3s ease;
+}
+
+.animate-shake-2 {
+  animation: shake-2 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  transition: transform 0.3s ease;
+}
+
+.animate-shake-3 {
+  animation: shake-3 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  transition: transform 0.3s ease;
+}
+
+/* Performance Optimizations for Shake Animations */
+.animate-shake-1,
+.animate-shake-2,
+.animate-shake-3 {
+  will-change: transform;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
 }
 
