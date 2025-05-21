@@ -59,27 +59,27 @@ export default function Home() {
           <img
             src="/images/laptop.png"
             alt=""
-            className="hidden md:block absolute left-20 top-20 w-24 md:w-32 opacity-90 animate-bounce-1"
+            className="hidden md:block absolute left-20 top-20 w-24 md:w-32 opacity-90 animate-shake-1"
           />
           <img
             src="/images/clipboard.png"
             alt=""
-            className="hidden md:block absolute right-32 top-40 w-20 md:w-24 opacity-90 animate-rotate-1"
+            className="hidden md:block absolute right-32 top-40 w-20 md:w-24 opacity-90 animate-shake-2"
           />
           <img
             src="/images/document.png"
             alt=""
-            className="hidden md:block absolute left-40 bottom-20 w-24 md:w-28 opacity-90 animate-pulse-1"
+            className="hidden md:block absolute left-40 bottom-20 w-24 md:w-28 opacity-90 animate-shake-3"
           />
           <img
             src="/images/backpack.png"
             alt=""
-            className="hidden md:block absolute right-40 bottom-40 w-24 md:w-32 opacity-90 animate-bounce-2"
+            className="hidden md:block absolute right-40 bottom-40 w-24 md:w-32 opacity-90 animate-shake-1"
           />
           <img
             src="/images/books.png"
             alt=""
-            className="hidden md:block absolute right-20 bottom-20 w-24 md:w-32 opacity-90 animate-rotate-2"
+            className="hidden md:block absolute right-20 bottom-20 w-24 md:w-32 opacity-90 animate-shake-2"
           />
 
           {/* Main Content */}

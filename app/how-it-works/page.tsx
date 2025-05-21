@@ -5,9 +5,37 @@ import { FileText, PenTool, Award, Book, CheckCircle2, Sparkles, Upload, Brain }
 import { Navbar } from "@/components/navbar";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function HowItWorks() {
+  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-slide-in');
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+      }
+    );
+
+    stepRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => {
+      stepRefs.current.forEach((ref) => {
+        if (ref) observer.unobserve(ref);
+      });
+    };
+  }, []);
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-blue-50 relative overflow-hidden">
       {/* Background Patterns */}
@@ -33,8 +61,11 @@ export default function HowItWorks() {
       <section className="py-12 md:py-20">
         <div className="max-w-7xl mx-auto px-4 md:px-6">
           {/* Step 01 */}
-          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-16 mb-20 md:mb-32">
-            <div className="w-full md:w-1/2 bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-gray-100">
+          <div 
+            ref={(el) => (stepRefs.current[0] = el)}
+            className="flex flex-col md:flex-row items-center gap-8 md:gap-16 mb-20 md:mb-32 opacity-0 translate-x-[-50px] transition-all duration-1000"
+          >
+            <div className="w-full md:w-1/2 bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300">
               <div className="flex items-center gap-4 mb-6">
                 <div className="flex items-center justify-center w-12 h-12 rounded-full bg-teal-100 text-teal-600">
                   <Upload className="w-6 h-6" />
@@ -46,16 +77,11 @@ export default function HowItWorks() {
                 including PDFs, Word documents, and scanned papers. The upload process is simple 
                 and secure, ensuring your materials are safely stored and ready for grading.
               </p>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="flex justify-center">
                 <img
-                  src="/upload-preview-1.png"
+                  src="/images/Step_1.png"
                   alt="Document upload interface"
-                  className="rounded-lg shadow-md"
-                />
-                <img
-                  src="/upload-preview-2.jpg"
-                  alt="File processing preview"
-                  className="rounded-lg shadow-md"
+                  className="rounded-lg shadow-md w-full max-w-md hover:scale-105 transition-transform duration-300"
                 />
               </div>
             </div>
@@ -69,8 +95,11 @@ export default function HowItWorks() {
           </div>
 
           {/* Step 02 */}
-          <div className="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-16 mb-20 md:mb-32">
-            <div className="w-full md:w-1/2 bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-gray-100">
+          <div 
+            ref={(el) => (stepRefs.current[1] = el)}
+            className="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-16 mb-20 md:mb-32 opacity-0 translate-x-[50px] transition-all duration-1000"
+          >
+            <div className="w-full md:w-1/2 bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300">
               <div className="flex items-center gap-4 mb-6">
                 <div className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 text-blue-600">
                   <Brain className="w-6 h-6" />
@@ -82,16 +111,11 @@ export default function HowItWorks() {
                 responses, identifies key concepts, and applies your grading criteria consistently 
                 across all submissions.
               </p>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="flex justify-center">
                 <img
-                  src="/ai-analysis-1.jpg"
+                  src="/images/Step_2.png"
                   alt="AI analysis interface"
-                  className="rounded-lg shadow-md"
-                />
-                <img
-                  src="/ai-analysis-2.jpg"
-                  alt="Grading process preview"
-                  className="rounded-lg shadow-md"
+                  className="rounded-lg shadow-md w-full max-w-md hover:scale-105 transition-transform duration-300"
                 />
               </div>
             </div>
@@ -105,8 +129,11 @@ export default function HowItWorks() {
           </div>
 
           {/* Step 03 */}
-          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-16">
-            <div className="w-full md:w-1/2 bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-gray-100">
+          <div 
+            ref={(el) => (stepRefs.current[2] = el)}
+            className="flex flex-col md:flex-row items-center gap-8 md:gap-16 opacity-0 translate-x-[-50px] transition-all duration-1000"
+          >
+            <div className="w-full md:w-1/2 bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300">
               <div className="flex items-center gap-4 mb-6">
                 <div className="flex items-center justify-center w-12 h-12 rounded-full bg-teal-100 text-teal-600">
                   <CheckCircle2 className="w-6 h-6" />
@@ -118,16 +145,11 @@ export default function HowItWorks() {
                 and share detailed results with your students. The system provides comprehensive 
                 analytics and insights to help track progress.
               </p>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="flex justify-center">
                 <img
-                  src="/results-preview-1.jpg"
+                  src="/images/Step_3.png"
                   alt="Results dashboard"
-                  className="rounded-lg shadow-md"
-                />
-                <img
-                  src="/results-preview-2.jpg"
-                  alt="Analytics view"
-                  className="rounded-lg shadow-md"
+                  className="rounded-lg shadow-md w-full max-w-md hover:scale-105 transition-transform duration-300"
                 />
               </div>
             </div>
