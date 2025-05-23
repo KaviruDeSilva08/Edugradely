@@ -4,7 +4,7 @@
 
 # EduGradely - AI-Powered Grading System
 
-![EduGradely Logo](/public/images/EG_Logo.png)
+![EduGradely Logo](https://github.com/KaviruDeSilva08/Edugradely/blob/main/frontend/public/images/EG_Logo.png)
 
 EduGradely is a modern web application that leverages artificial intelligence to assist in grading and evaluating student 
 submissions. The project combines a Next.js frontend with a Flask backend to provide a seamless grading experience.
