@@ -21,7 +21,6 @@ import { useRouter } from "next/navigation";
 import { UploadDialog } from "@/components/UploadDialog";
 import jsPDF, { GState } from "jspdf";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
-import { GradingReport } from '@/components/GradingReport';
 import { logToTerminal } from '@/lib/api';
 
 type GradingResponse = {
@@ -44,15 +43,31 @@ interface RubricEntry {
   color: string;
 }
 
+interface GradingReport {
+  assignment: string;
+  rubric: string;
+  answers: string;
+  note: string;
+  grade: string;
+  score: number;
+  feedback: string;
+  rubricChart: RubricEntry[];
+  answerComparisons: AnswerComparison[];
+}
+
 // Add these functions at the top level, before the Dashboard component
 const getRandomGrade = () => {
-  const grades = ['C+', 'B', 'A+'];
+  const grades = [
+    { letter: 'C+', score: 56 },
+    { letter: 'B', score: 68 },
+    { letter: 'A+', score: 89 }
+  ];
   const randomIndex = Math.floor(Math.random() * grades.length);
   return grades[randomIndex];
 };
 
-const getGradeFeedback = (grade: string) => {
-  switch (grade) {
+const getGradeFeedback = (grade: { letter: string, score: number }) => {
+  switch (grade.letter) {
     case 'A+':
       return "Outstanding work! The assignment demonstrates exceptional understanding and mastery of the concepts.";
     case 'B':
@@ -64,8 +79,8 @@ const getGradeFeedback = (grade: string) => {
   }
 };
 
-const getAnswerComparisons = (grade: string) => {
-  switch (grade) {
+const getAnswerComparisons = (grade: { letter: string, score: number }) => {
+  switch (grade.letter) {
     case 'A+':
       return [
         {
@@ -186,7 +201,8 @@ export default function Dashboard() {
     await logToTerminal({
       type: 'INFO',
       message: 'Random grade selected',
-      grade: randomGrade,
+      grade: randomGrade.letter,
+      score: randomGrade.score,
       feedback: gradeFeedback,
       answerComparisons: answerComparisons.length
     });
@@ -197,7 +213,8 @@ export default function Dashboard() {
       rubric: files.rubric?.name || "No file uploaded",
       answers: files.answers?.name || "No file uploaded",
       note: note || "",
-      grade: randomGrade,
+      grade: randomGrade.letter,
+      score: randomGrade.score,
       feedback: gradeFeedback,
       rubricChart: [
         { name: "Content", value: 40, color: "#14b8a6" },
@@ -213,6 +230,7 @@ export default function Dashboard() {
       message: 'Grading report generated',
       report: {
         grade: report.grade,
+        score: report.score,
         feedback: report.feedback,
         rubricBreakdown: report.rubricChart,
         answerComparisons: report.answerComparisons?.length
@@ -232,6 +250,7 @@ export default function Dashboard() {
       message: 'Downloading PDF report',
       report: {
         grade: gradingReport.grade,
+        score: gradingReport.score,
         assignment: gradingReport.assignment,
         rubric: gradingReport.rubric,
         answers: gradingReport.answers
@@ -314,6 +333,10 @@ export default function Dashboard() {
     doc.setFontSize(16);
     doc.setTextColor(20, 184, 166);
     doc.text(`Grade: ${gradingReport.grade}`, 14, yPosition);
+    yPosition += 10;
+    
+    doc.setFontSize(14);
+    doc.text(`Score: ${gradingReport.score}%`, 14, yPosition);
     yPosition += 10;
     
     doc.setFontSize(12);
@@ -428,7 +451,10 @@ export default function Dashboard() {
             <div className="mb-2"><b>Rubric:</b> <span className="text-teal-700">{gradingReport.rubric}</span></div>
             <div className="mb-2"><b>Answers:</b> <span className="text-teal-700">{gradingReport.answers}</span></div>
             <div className="mb-2"><b>Note:</b> <span className="text-gray-700">{gradingReport.note}</span></div>
-            <div className="mb-2"><b>Grade:</b> <span className="text-teal-600 font-semibold text-lg">{gradingReport.grade}</span></div>
+            <div className="mb-4">
+              <div className="mb-1"><b>Grade:</b> <span className="text-teal-600 font-semibold text-lg">{gradingReport.grade}</span></div>
+              <div className="ml-6"><b>Score:</b> <span className="text-teal-600 font-semibold">{gradingReport.score}%</span></div>
+            </div>
             <div className="mb-4"><b>Feedback:</b> <span className="text-gray-700">{gradingReport.feedback}</span></div>
 
             {/* Answer Comparisons Section */}
