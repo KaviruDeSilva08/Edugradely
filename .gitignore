@@ -4,11 +4,9 @@
 node_modules/
 .pnp/
 .pnp.js
-.yarn/install-state.gz
 
 # testing
 coverage/
-.nyc_output/
 
 # next.js
 .next/
@@ -29,10 +27,6 @@ yarn-error.log*
 
 # local env files
 .env*.local
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
 
 # vercel
 .vercel
@@ -54,9 +48,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-*.egg-info/
-.installed.cfg
-*.egg
+.python-version
 
 # IDE
 .idea/
@@ -69,18 +61,22 @@ logs
 *.log
 app.log
 
-# Uploads
+# Uploads and generated files
 backend/uploads/*
 !backend/uploads/.gitkeep
 
-# Model files
-backend/model/*
-!backend/model/.gitkeep
+# Model files and data
+*.h5
+*.pkl
+*.model
+*.bin
+*.pt
+*.pth
 
 # Cache
 .cache/
-.eslintcache
-.stylelintcache
+.mypy_cache/
+.pytest_cache/
 
-# Misc
-.turbo
+# System Files
+Thumbs.db
