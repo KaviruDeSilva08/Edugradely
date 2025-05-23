@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
     'Content-Type': 'multipart/form-data',
   },
   // Add timeout
-  timeout: 30000, // 30 seconds
+  timeout: 30000, 
 });
 
 // Add request interceptor for logging

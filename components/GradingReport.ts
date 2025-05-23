@@ -4,6 +4,7 @@ export interface GradingReport {
   answers: string;
   note: string;
   grade: string;
+  score: number;
   feedback: string;
   rubricChart?: { name: string; value: number; color: string }[];
   answerComparisons?: {
