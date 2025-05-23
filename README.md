@@ -6,103 +6,104 @@
 
 ![EduGradely Logo](/public/images/EG_Logo.png)
 
-EduGradely is a modern web application that leverages artificial intelligence to assist in grading and evaluating student submissions. The project combines a Next.js frontend with a Flask backend to provide a seamless grading experience.
-
-## Features
-
-- AI-powered grading system
-- Modern, responsive UI built with Next.js and Tailwind CSS
-- Secure user authentication
-- Real-time feedback and evaluation
-- PDF generation and export capabilities
-
-## Prerequisites
-
-Before you begin, ensure you have the following installed:
-- Node.js (v18 or higher)
-- Python (v3.8 or higher)
-- npm or yarn package manager
-- pip (Python package manager)
-
-## Installation
-
-1. Clone the repository:
-```bash
-git clone [your-repository-url]
-cd Edugradely
-```
-
-2. Set up the frontend:
-```bash
-# Install dependencies
-npm install
-
-# Create a .env.local file in the root directory and add necessary environment variables
-```
-
-3. Set up the backend:
-```bash
-# Create and activate a virtual environment
-python -m venv .venv
-source .venv/bin/activate  # On Windows, use: .venv\Scripts\activate
-
-# Install Python dependencies
-pip install -r requirements.txt
-```
-
-## Running the Application
-
-1. Start the backend server:
-```bash
-# Make sure your virtual environment is activated
-python app.py
-```
-
-2. In a new terminal, start the frontend development server:
-```bash
-npm run dev
-```
-
-The application will be available at:
-- Frontend: http://localhost:3000
-- Backend API: http://localhost:5000
-
-## Development
-
-- Frontend development server: `npm run dev`
-- Build for production: `npm run build`
-- Start production server: `npm start`
-- Run linting: `npm run lint`
+EduGradely is a modern web application that leverages artificial intelligence to assist in grading and evaluating student 
+submissions. The project combines a Next.js frontend with a Flask backend to provide a seamless grading experience.
 
 ## Project Structure
 
 ```
-Edugradely/
-├── app/                 # Next.js app directory
-├── components/          # React components
-├── Backend/            # Backend related files
-├── lib/                # Utility libraries
-├── public/             # Static files
-├── utils/              # Utility functions
-├── app.py             # Flask backend server
-└── requirements.txt    # Python dependencies
+EduGradely/
+├── frontend/                 # Next.js frontend application
+│   ├── app/                 # Next.js app directory
+│   ├── components/          # React components
+│   ├── lib/                 # Utility libraries
+│   ├── public/             # Static assets
+│   ├── utils/              # Utility functions
+│   ├── hooks/              # Custom React hooks
+│   └── ...                 # Configuration files
+│
+├── backend/                 # Python Flask backend
+│   ├── src/                # Source code
+│   ├── model/              # AI model files
+│   ├── uploads/            # File upload directory
+│   ├── app.py              # Main Flask application
+│   ├── model.py            # AI model implementation
+│   └── requirements.txt    # Python dependencies
+│
+└── .gitignore              # Git ignore file
 ```
 
-## Technologies Used
+## Prerequisites
 
-- **Frontend:**
-  - Next.js
-  - React
-  - Tailwind CSS
-  - TypeScript
-  - Radix UI Components
+- Node.js (v18 or higher)
+- Python (v3.8 or higher)
+- npm or yarn
+- pip (Python package manager)
 
-- **Backend:**
-  - Flask
-  - Python
-  - scikit-learn
-  - NLTK
-  - Pandas
+## Setup Instructions
+
+### Frontend Setup
+
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+The frontend will be available at `http://localhost:3000`
+
+### Backend Setup
+
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
+
+2. Create and activate a virtual environment (recommended):
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+   ```
+
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Start the Flask server:
+   ```bash
+   python app.py
+   ```
+
+The backend API will be available at `http://localhost:5000`
+
+## Features
+
+- AI-powered grading system
+- Real-time feedback generation
+- Modern, responsive user interface
+- Secure file upload and processing
+- Comprehensive grading analytics
+
+## Development
+
+- Frontend is built with Next.js, TypeScript, and Tailwind CSS
+- Backend is built with Python Flask
+- AI model integration for automated grading
+- RESTful API architecture
 
 ## Contributing
 
