@@ -2,7 +2,7 @@
   <img src="https://capsule-render.vercel.app/api?type=waving&height=100&color=00DEFF&text=Welcome&reversal=false&descAlign=60&descAlignY=60&fontColor=ffffff&fontSize=40&animation=twinkling&section=header" width="100%" />
 </p>
 
-# EduGradely - AI-Powered Grading System
+# EduGradely - AI-Based Assignment Grading Tool
 
 ![EduGradely Logo](https://github.com/KaviruDeSilva08/Edugradely/blob/main/frontend/public/images/EG_Logo.png)
 
