@@ -119,7 +119,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Support
 
-For support, please open an issue in the GitHub repository or contact the development team.
+For support, please open an issue in the GitHub repository or contact to me.
 
 <p align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&height=100&color=00DEFF&reversal=false&descAlign=60&descAlignY=60&fontColor=ffffff&fontSize=60&animation=twinkling&section=footer" width="100%" />
